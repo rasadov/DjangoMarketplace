@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <h1>Sign up</h1>
+    <p>Please fill out the form below to create an account:</p>
+    <div style="text-align: left;">
+        <form method="post">
+            {% csrf_token %}
+            
+            {{ form.non_field_errors }}
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Username</label><br>
+                {{ form.username }}<br>
+                {{ form.username.errors }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Email</label><br>
+                {{ form.email }}<br>
+                {{ form.email.errors }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password</label><br>
+                {{ form.password1 }}<br>
+                {{ form.password1.errors }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Confirm Password</label><br>
+                {{ form.password2 }}<br>
+                {{ form.password2.errors }}
+            </div>
+
+            {% if form.errors or form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    Please correct the errors above.
+                </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary mb-3">Sign up</button>
+        </form>
+    </div>
+    
+{% endblock %}
