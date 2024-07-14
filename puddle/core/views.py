@@ -8,7 +8,6 @@ from .forms import SignupForm
 def index(request):
     items = Item.objects.filter(is_sold=False)[:6]
     categories = Category.objects.all()
-    print(request.user)
     return render(request, "core/index.html", {
             "items": items,
             "categories": categories,

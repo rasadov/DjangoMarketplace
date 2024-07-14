@@ -1,9 +1,37 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import Q
 from django.contrib import messages
 
-from .models import Item
+from .models import Item, Category
 from .forms import NewItemForm, EditItemForm
+
+
+def items(request):
+    query = request.GET.get("q", "")
+    items = Item.objects.filter(is_sold=False)
+
+    if query:
+        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+    return render(request=request,
+                  template_name="item/items.html",
+                  context={"items": items,
+                           "query": query,
+                           "categories": Category.objects.all(),})
+
+def category(request, category_id):
+    query = request.GET.get("q", "")
+    items = Item.objects.filter(category=category_id)
+
+    if query:
+        items = items.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+    return render(request=request,
+                  template_name="item/items.html",
+                  context={"items": items,
+                           "query": query,
+                           "categories": Category.objects.all(),})
 
 def detail(request, item_id):
     item = get_object_or_404(Item, pk=item_id)

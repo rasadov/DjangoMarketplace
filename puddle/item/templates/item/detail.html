@@ -4,7 +4,11 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ item.image.url }}" class="img-fluid" alt="{{ item.name }}" style="max-width: 400px; max-height: 400px;">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" class="img-fluid" alt="{{ item.name }}" style="max-width: 400px; max-height: 400px;">
+                {% else %}
+                    <p>No image</p>
+                {% endif %}
             </div>
             <div class="col-md-6">
                 <h1>{{ item.name }}</h1>

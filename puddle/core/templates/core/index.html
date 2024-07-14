@@ -10,7 +10,7 @@
                     <a href="{% url 'item:detail' i.id %}">
                         <div class="card">
                             {% if i.image %}
-                            <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.name }}" style="max-height: 400px; object-fit: cover;">
+                                <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.name }}" style="max-height: 400px; object-fit: cover;">
                             {% else %}
                             <p>No image</p>
                             {% endif %}

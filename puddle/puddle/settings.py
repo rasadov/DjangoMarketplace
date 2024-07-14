@@ -34,6 +34,7 @@ LOGOUT_REDIRECT_URL = "/"
 # Application definition
 
 INSTALLED_APPS = [
+    "communication.apps.CommunicationConfig",
     "dashboard.apps.DashboardConfig",
     "item.apps.ItemConfig",
     "core.apps.CoreConfig",

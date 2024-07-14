@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h1>Inbox</h1>
+        </div>
+        <div class="row my-3">
+            <a href="{% url 'communication:send' %}">
+                <button class="btn btn-primary ml-auto">New Message</button>
+            </a>
+        </div>
+        {% for message in messages %}
+            <a href="{% url 'communication:message_detail' message.id %}">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ message.subject }}</h5>
+                        <p class="card-text"><small class="text-muted">{{ message.sender }} - {{ message.created_at }}</small></p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

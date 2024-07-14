@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>{{ message.subject }}</h1>
+        <p>{{ message.body }}</p>
+        <p><small class="text-muted
+        {% if message.sender == user %}
+            text-right
+        {% endif %}
+        ">{{ message.sender }} - {{ message.created_at }}</small></p>
+
+        <a href="{% url 'communication:send' message.sender.username %}" class="btn btn-primary">Reply</a>
+
+        <a href="{% url 'communication:inbox' %}" class="btn btn-secondary">Back to Inbox</a>
+
+        <form method="POST" action="{% url 'communication:delete_message' message.id %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+{% endblock %}
