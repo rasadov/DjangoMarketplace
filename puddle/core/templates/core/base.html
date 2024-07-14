@@ -19,18 +19,30 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/contact">Contact</a>
                         </li>
+                        {% if not user.is_authenticated %}
                         <li class="nav-item">
                                 <a class="nav-link" href="/signup">Sign Up</a>
                         </li>
                         <li class="nav-item">
-                                <a class="nav-link" href="/signin">Sign In</a>
+                                <a class="nav-link" href="/login">Sign In</a>
                         </li>
+                        {% else %}
+                        <li class="nav-item">
+                                <a class="nav-link" href="{% url 'item:new_item' %}">New Item</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/inbox">Inbox</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="/dash">Dash</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

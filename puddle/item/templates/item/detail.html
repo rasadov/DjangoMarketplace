@@ -10,6 +10,10 @@
                 <h1>{{ item.name }}</h1>
                 <p>{{ item.description }}</p>
                 <p class="text-primary">{{ item.price }}</p>
+                {% if item.created_by == request.user %}
+                    <a href="{% url 'item:edit' item.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'item:delete' item.id %}" class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
         </div>
         <div class="row mt-5">
@@ -17,7 +21,11 @@
                 <h1>Similar items</h1>
                 {% for i in related_items %}
                     <div class="card" style="width: 18rem; display: inline-block;">
-                        <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.name }}">
+                        {% if i.image %}
+                            <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.name }}">
+                        {% else %}
+                            <p>No image</p>
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ i.name }}</h5>
                             <p class="card-text">{{ i.description }}</p>

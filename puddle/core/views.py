@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login
 
 from item.models import Item, Category
 
@@ -7,7 +8,7 @@ from .forms import SignupForm
 def index(request):
     items = Item.objects.filter(is_sold=False)[:6]
     categories = Category.objects.all()
-
+    print(request.user)
     return render(request, "core/index.html", {
             "items": items,
             "categories": categories,
@@ -21,11 +22,19 @@ def signup(request):
         form = SignupForm(request.POST)
 
         if form.is_valid():
-            form.save()
-            return redirect("/login/")
+            user = form.save()
+            
+            user = authenticate(request, username=user.get_username(), password=form.cleaned_data['password1'])
+            if user is not None:
+                login(request, user)
+                return redirect('/')
     else:
         form = SignupForm()
 
     return render(request, "core/signup.html", {
             "form": form,
         })
+
+def signout(request):
+    request.session.flush()
+    return redirect("/")
